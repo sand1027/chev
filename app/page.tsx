@@ -1,35 +1,19 @@
+import Image from "next/image";
 import { ReviewCarousel } from "@/components/review-carousel";
 import { ScrollHashSync } from "@/components/scroll-hash-sync";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { formatInr, services } from "@/data/site";
 
-const services = [
-  {
-    number: "01",
-    slug: "career-clarity",
-    title: "Global career strategy",
-    description:
-      "A decisive plan for your next move—from target markets and role positioning to a job-search system that fits your life.",
-  },
-  {
-    number: "02",
-    slug: "career-positioning",
-    title: "Profile & story",
-    description:
-      "CVs, LinkedIn, portfolios, and narratives that make your experience easy to understand and hard to overlook.",
-  },
-  {
-    number: "03",
-    slug: "interview-support",
-    title: "Interview confidence",
-    description:
-      "Real-world practice for the moments that matter: recruiter calls, panels, case studies, negotiation, and beyond.",
-  },
-];
+const highlights = [
+  services.find((service) => service.slug === "fresher-consultation"),
+  services.find((service) => service.slug === "experienced-mentoring"),
+  services.find((service) => service.slug === "consulting-day"),
+].flatMap((service) => (service ? [service] : []));
 
 const outcomes = [
-  ["01", "Find your signal", "Clarify the experience, strengths, and direction that make you the obvious choice."],
-  ["02", "Build your case", "Turn your career story into a distinct professional presence across every hiring touchpoint."],
-  ["03", "Move with intent", "Show up to each conversation prepared, composed, and ready to make a meaningful next move."],
+  ["01", "Lead the room", "Teams of 30+ across delivery, solution design, vendor governance, and client consulting."],
+  ["02", "Modernise the platform", "Cloud migration, ETL modernisation, governance, and analytics that shorten the path to a useful report."],
+  ["03", "Make the architecture clear", "Design trade-offs, stakeholder conversations, and pre-sales pitches that a team can act on."],
 ];
 
 function Arrow({ className = "" }: { className?: string }) {
@@ -55,46 +39,47 @@ export default function Home() {
       <main className="site-shell">
       <ScrollHashSync sectionIds={["top", "approach", "services", "stories", "connect"]} />
       <section className="hero" id="top">
-        <div className="hero-grid container">
+        <div className="hero-split">
           <div className="hero-copy">
-            <p className="eyebrow reveal-delay-1"><span /> International career consultancy</p>
-            <h1 className="display reveal-delay-2">A career that takes you <em>further.</em></h1>
-            <p className="hero-intro reveal-delay-3">
-              Strategic career guidance for ambitious professionals ready to find work that feels bigger, clearer, and entirely theirs.
-            </p>
-            <div className="hero-actions reveal-delay-4">
-              <a className="button button-dark" href="#connect" data-analytics-event="hero_start_conversation">
-                Start a conversation <Arrow />
-              </a>
-              <a className="text-link" href="#services">Explore services <Arrow /></a>
+            <div>
+              <p className="eyebrow reveal-delay-1"><span /> Senior Data & Solutions Architect</p>
+              <h1 className="display reveal-delay-2">Architecture you can <em>explain.</em></h1>
+              <p className="hero-intro reveal-delay-3">
+                Chevvanthi MN mentors freshers and experienced IT professionals, and advises startups and mid-size teams on Microsoft Fabric, Azure, and data platforms.
+              </p>
+              <div className="hero-actions reveal-delay-4">
+                <a className="button button-dark" href="/book" data-analytics-event="hero_start_conversation">
+                  Book and pay <Arrow />
+                </a>
+                <a className="text-link" href="#services">Explore services <Arrow /></a>
+              </div>
             </div>
+            <ul className="hero-points">
+              <li><span>Fabric</span> OneLake, lakehouse, and Data Factory</li>
+              <li><span>Azure</span> Synapse, migration, and governance</li>
+              <li><span>Mentoring</span> Interviews and the path to architect</li>
+            </ul>
           </div>
-          <div className="hero-art reveal-delay-3" aria-label="Abstract illustration of a career path" role="img">
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="hero-circle" />
-            <div className="hero-sun" />
-            <div className="hero-star"><Spark /></div>
-            <div className="hero-marker marker-a"><span>01</span><i /></div>
-            <div className="hero-marker marker-b"><span>02</span><i /></div>
-            <p className="art-caption">Your next chapter<br />starts with clarity.</p>
+          <div className="hero-media">
+            <Image className="hero-portrait" src="/chevvanthi.jpg" alt="Portrait of Chevvanthi MN" fill priority sizes="(max-width: 900px) 100vw, 380px" />
           </div>
-        </div>
-        <div className="hero-foot container">
-          <p>For professionals building careers across borders and industries.</p>
-          <a href="#approach" aria-label="Scroll to approach">Scroll to discover <span>↓</span></a>
+          <dl className="hero-facts">
+            <div><dt>Based in</dt><dd>Bangalore</dd></div>
+            <div><dt>In practice</dt><dd>20+ years</dd></div>
+            <div><dt>Sessions from</dt><dd>₹499</dd></div>
+          </dl>
         </div>
       </section>
 
       <section className="intro-section container" id="approach">
-        <div className="section-label">The Chev approach</div>
+        <div className="section-label">The practice</div>
         <div className="intro-copy">
-          <p className="kicker">You bring the ambition. We bring the perspective.</p>
-          <h2>Career change is personal.<br /><em>The process should be too.</em></h2>
-          <p className="body-copy">There is no one-size-fits-all career playbook. Chev blends sharp strategy with honest, human guidance to help you make decisions with confidence—wherever in the world work takes you.</p>
+          <p className="kicker">Senior Data & Solutions Architect</p>
+          <h2>Twenty years inside<br /><em>enterprise data.</em></h2>
+          <p className="body-copy">Microsoft Fabric, Azure, Synapse, Snowflake, and the ETL systems that came before them. Chevvanthi uses that work to prepare people for interviews and to help companies design platforms that hold up.</p>
         </div>
         <div className="intro-aside">
-          <p>Designed for the moment between<br />what you&apos;ve built and what&apos;s next.</p>
+          <p>B.E. Information Technology,<br />Kongu Engineering College, 2004.</p>
           <div className="tiny-star"><Spark /></div>
         </div>
       </section>
@@ -103,16 +88,16 @@ export default function Home() {
         <div className="container">
           <div className="section-heading">
             <div className="section-label">What we do</div>
-            <h2>Guidance for every<br /><em>kind of next.</em></h2>
-            <p>Focused, thoughtful support that meets you where you are—and helps you go further.</p>
+            <h2>Three ways to<br /><em>work together.</em></h2>
+            <p>A one-hour fresher session, a two-hour architect mentoring session, or a consulting block for a company team.</p>
           </div>
           <div className="services-list">
-            {services.map((service) => (
-              <article className="service-card" key={service.number}>
-                <div className="service-top"><span>{service.number}</span><Arrow /></div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <a href={`/book?service=${service.slug}`} data-analytics-event={`service_${service.number}_booking`}>Book a slot <Arrow /></a>
+            {highlights.map((service, index) => (
+              <article className="service-card" key={service.slug}>
+                <div className="service-top"><span>0{index + 1}</span></div>
+                <h3>{service.audience}</h3>
+                <p>{service.description} {formatInr(service.amount)} · {service.duration}.</p>
+                <a href={`/book?service=${service.slug}`} data-analytics-event={`service_${service.slug}_booking`}>Book this <Arrow /></a>
               </article>
             ))}
           </div>
@@ -123,11 +108,11 @@ export default function Home() {
         <div className="outcomes-art" aria-hidden="true">
           <div className="arch arch-1" /><div className="arch arch-2" /><div className="arch arch-3" />
           <div className="outcomes-dot" />
-          <p>What becomes<br />possible when<br />you get clear.</p>
+          <p>Teams, platforms,<br />and a decision<br />you can defend.</p>
         </div>
         <div className="outcomes-copy">
-          <div className="section-label">What changes</div>
-          <h2>From uncertain<br />to <em>unmistakable.</em></h2>
+          <div className="section-label">What the work has built</div>
+          <h2>Delivery, platforms,<br />and <em>clear decisions.</em></h2>
           <div className="outcomes-list">
             {outcomes.map(([number, title, description]) => (
               <div className="outcome" key={number}>
@@ -142,22 +127,22 @@ export default function Home() {
       <section className="stories-section" id="stories">
         <div className="container">
           <div className="stories-header">
-            <div><div className="section-label">The Chev effect</div><h2>Good moves.<br /><em>Great stories.</em></h2></div>
-            <p>Every career is different. Here&apos;s what happens when people give theirs the attention it deserves.</p>
+            <div><div className="section-label">Who it&apos;s for</div><h2>Freshers, architects,<br /><em>and teams.</em></h2></div>
+            <p>Choose the format that matches the conversation. Company packages continue by the day, week, or month.</p>
           </div>
         </div>
         <ReviewCarousel />
       </section>
 
       <section className="process-section container">
-        <div className="process-note"><span className="roundel">C</span><p>Clear thinking,<br />real momentum.</p></div>
+        <div className="process-note"><span className="roundel">C</span><p>Pay here.<br />Meet on video.</p></div>
         <div className="process-copy">
           <div className="section-label">How it works</div>
-          <h2>A thoughtful process.<br /><em>A decisive result.</em></h2>
+          <h2>Choose a session.<br /><em>Then pay.</em></h2>
           <div className="process-steps">
-            <div><span>01 / Connect</span><p>We begin with a complimentary conversation about your direction, questions, and what support could look like.</p></div>
-            <div><span>02 / Shape</span><p>We build a focused engagement around your goals, timeline, and the kind of change you&apos;re ready to create.</p></div>
-            <div><span>03 / Move</span><p>You leave with a sharper story, a stronger plan, and practical tools to make your next move count.</p></div>
+            <div><span>01 / Choose</span><p>Pick a fresher session, experienced mentoring, or a daily, weekly, or monthly consulting block.</p></div>
+            <div><span>02 / Pay</span><p>Share a preferred time and pay with Razorpay. The charge matches the price on this site.</p></div>
+            <div><span>03 / Meet</span><p>Chevvanthi confirms the slot by email. You arrive with the interview, architecture question, or platform problem in front of you.</p></div>
           </div>
         </div>
       </section>
@@ -166,11 +151,11 @@ export default function Home() {
         <div className="connect-inner container">
           <div className="connect-orb"><div /><span>↗</span></div>
           <div className="connect-copy">
-            <p className="eyebrow"><span /> Make your move</p>
-            <h2>Ready for a career<br />that feels like <em>yours?</em></h2>
-            <p>Let&apos;s start with a conversation. No pressure, no pitch—just a little space to think bigger about what&apos;s next.</p>
-            <a className="button button-light" href="mailto:hello@chev.consulting?subject=Career%20consultation%20enquiry" data-analytics-event="contact_email_click">
-              Say hello <Arrow />
+            <p className="eyebrow"><span /> Book a session</p>
+            <h2>Ready to talk through<br />the <em>next decision?</em></h2>
+            <p>Fresher sessions start at ₹499. Experienced mentoring is ₹999 for two hours. Company consulting starts at ₹2,000 a day.</p>
+            <a className="button button-light" href="/book" data-analytics-event="contact_email_click">
+              Book and pay <Arrow />
             </a>
           </div>
         </div>

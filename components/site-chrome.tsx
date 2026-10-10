@@ -10,8 +10,13 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/reviews", label: "Reviews" },
+  { href: "/reviews", label: "Practice" },
   { href: "/blog", label: "Guides" },
+];
+
+const moreLinks = [
+  { href: "/faq", label: "FAQs" },
+  { href: "/contact", label: "Contact" },
 ];
 
 function isCurrent(pathname: string, href: string) {
@@ -44,7 +49,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link className="wordmark" href="/" aria-label="Chev home">chev<span>•</span></Link>
+        <Link className="wordmark" href="/" aria-label="Chevvanthi home">chev<span>•</span></Link>
         <nav className="header-nav" aria-label="Primary navigation">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} aria-current={isCurrent(pathname, link.href) ? "page" : undefined}>
@@ -68,7 +73,7 @@ export function SiteHeader() {
       </div>
       <nav id="mobile-nav" className={isOpen ? "mobile-nav is-open" : "mobile-nav"} aria-label="Mobile navigation" aria-hidden={!isOpen} inert={!isOpen}>
         <div className="container mobile-nav-list">
-          {navLinks.map((link) => (
+          {[...navLinks, ...moreLinks].map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -97,7 +102,7 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  return <footer className="site-footer"><div className="container footer-grid"><div><Link className="wordmark" href="/">chev<span>•</span></Link><p>International career consultancy for intentional next moves.</p></div><div><strong>Explore</strong><Link href="/about">About the counsellor</Link><Link href="/services">Services</Link><Link href="/pricing">Pricing</Link></div><div><strong>Resources</strong><Link href="/blog">Career guides</Link><Link href="/faq">Frequently asked questions</Link><Link href="/reviews">Client reviews</Link></div><div><strong>Connect</strong><Link href="/book">Book a slot</Link><Link href="/contact">Start a conversation</Link><a href={`mailto:${site.email}`}>{site.email}</a></div></div><div className="container footer-base"><span>© {new Date().getFullYear()} Chev. All rights reserved.</span><Link href="/sitemap.xml">Sitemap</Link></div></footer>;
+  return <footer className="site-footer"><div className="container footer-grid"><div><Link className="wordmark" href="/">chev<span>•</span></Link><p>Data architecture mentoring and consulting from Bangalore.</p></div><div><strong>Explore</strong><Link href="/about">About Chevvanthi</Link><Link href="/services">Services</Link><Link href="/pricing">Pricing</Link></div><div><strong>Resources</strong><Link href="/blog">Guides</Link><Link href="/faq">Frequently asked questions</Link><Link href="/reviews">Who it&apos;s for</Link></div><div><strong>Connect</strong><Link href="/book">Book and pay</Link><Link href="/contact">Start a conversation</Link><a href={`mailto:${site.email}`}>{site.email}</a></div></div><div className="container footer-base"><span>© {new Date().getFullYear()} Chevvanthi MN. All rights reserved.</span><Link href="/sitemap.xml">Sitemap</Link></div></footer>;
 }
 
 export function PageShell({ children }: { children: React.ReactNode }) {

@@ -1,3 +1,11 @@
+import { site } from "@/data/site";
+
+const author = {
+  name: site.counsellor.name,
+  role: site.counsellor.role,
+  bio: site.counsellor.bio,
+};
+
 export type Article = {
   slug: string;
   title: string;
@@ -13,40 +21,32 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "how-to-plan-an-international-career-move",
-    title: "How to plan an international career move with more clarity",
-    description: "A practical framework for deciding where to focus your job search when your next opportunity may be across borders.",
+    slug: "explain-a-project-in-an-interview",
+    title: "How to explain a project in an interview",
+    description: "A simple way to walk through the problem, the design, and the trade-off without reading your résumé back to the panel.",
     publishedAt: "2026-03-24",
     readingTime: "5 min read",
-    category: "Career strategy",
-    author: {
-      name: "Your counsellor's name",
-      role: "International career consultant",
-      bio: "Replace this placeholder with the counsellor's verified background, qualifications, and relevant experience before publishing.",
-    },
+    category: "Interview preparation",
+    author,
     sections: [
-      { heading: "Start with the work, not the location", paragraphs: ["A new country can be exciting, but it is rarely a useful starting point on its own. Begin by defining the kind of work, responsibility, and environment you want next. That gives you a clearer way to assess markets rather than chasing every possible option.", "Write down the roles that genuinely fit your strengths, then look for the markets where those roles are hired, valued, and realistic for your current experience."] },
-      { heading: "Separate signals from assumptions", paragraphs: ["Job boards, employer career pages, professional communities, and conversations with people already working in a market will tell you more than broad headlines. Look for recurring role titles, visa requirements, language expectations, and the way employers describe success.", "The goal is not to predict every outcome. It is to replace vague ambition with useful evidence before you invest too much time."] },
-      { heading: "Build a search rhythm you can sustain", paragraphs: ["International searches take time. Create a weekly rhythm for role research, tailored applications, profile refinement, and relationship-building. A smaller number of well-chosen applications is more useful than a large volume of generic ones.", "Keep a simple record of what receives a response. It will show you which positioning is working and where to adjust your approach."] },
+      { heading: "Start with the problem", paragraphs: ["Name the business problem before the tools. A fresher project and a platform migration both need the same opening: who was stuck, and what had to change.", "If you begin with the product list, the interviewer has to guess why the work mattered."] },
+      { heading: "Show one decision", paragraphs: ["Pick a single design choice and say what you gave up. Storage, latency, cost, or a simpler pipeline are all valid trade-offs if you can explain them.", "Then say how you would know the choice was wrong. That is more useful than a feature tour."] },
+      { heading: "Close with what you would do next", paragraphs: ["End with the next improvement, not a summary of every task. It shows you can see past the ticket you were given.", "Keep a two-minute version and a longer one. Both should use the same story."] },
     ],
     status: "published",
   },
   {
-    slug: "turn-experience-into-a-clear-career-story",
-    title: "Turn your experience into a career story people remember",
-    description: "Move beyond a list of responsibilities and explain the value, direction, and evidence behind your professional experience.",
+    slug: "from-engineer-to-solution-architect",
+    title: "The move from engineer to solution architect",
+    description: "What changes when the job is no longer only the pipeline, and how to talk about that shift in an interview.",
     publishedAt: "2026-03-10",
     readingTime: "4 min read",
-    category: "Career positioning",
-    author: {
-      name: "Your counsellor's name",
-      role: "International career consultant",
-      bio: "Replace this placeholder with the counsellor's verified background, qualifications, and relevant experience before publishing.",
-    },
+    category: "Architecture mentoring",
+    author,
     sections: [
-      { heading: "Choose a through-line", paragraphs: ["A career story is not a chronological replay of every job. It is the thread that connects what you have done, what you are known for, and where you are going next.", "Identify two or three strengths that appear across your work. Then choose examples that show how those strengths created a useful outcome for a team, customer, or organisation."] },
-      { heading: "Use evidence to make it credible", paragraphs: ["Specificity builds trust. Add context, scale, constraints, and outcomes to your examples. The detail does not have to be numerical, but it should help someone understand what changed because you were involved.", "Prepare a short version for introductions and a longer version for interview conversations. Both should feel natural rather than rehearsed."] },
-      { heading: "Keep it relevant to the next role", paragraphs: ["A strong story makes a future connection. End by explaining the type of challenge you want to contribute to next and why your experience gives you a useful perspective.", "That shift from past tasks to future value helps hiring teams understand where you fit."] },
+      { heading: "The work gets wider", paragraphs: ["An architect still needs the engineering, but the day is also stakeholders, constraints, and a design other people can implement.", "If your examples stop at the code you wrote, the conversation stays at engineer."] },
+      { heading: "Trade-offs are the evidence", paragraphs: ["Bring one case where two reasonable options existed. Say who was affected, what it cost, and which risk you accepted.", "Microsoft Fabric, Azure, Synapse, or a lakehouse only help the story if they are tied to that decision."] },
+      { heading: "Ask for the gap, then close it", paragraphs: ["List the conversations you have not led yet: a pre-sales pitch, a security review, a cost argument. Those are the practice sessions.", "A mentoring hour is more useful when you arrive with that gap written down."] },
     ],
     status: "published",
   },

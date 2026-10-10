@@ -18,34 +18,34 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chev.consulting";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Chev — International Career Consultancy",
-    template: "%s | Chev",
+    default: "Chevvanthi MN — Data Architecture & IT Mentoring",
+    template: "%s | Chevvanthi",
   },
   description:
-    "Strategic career guidance for ambitious professionals ready to find work that feels bigger, clearer, and entirely theirs.",
+    "One-to-one IT mentoring and Microsoft Fabric, Azure, and data-platform consulting from Chevvanthi MN in Bangalore.",
   keywords: [
-    "career consultant",
-    "international career coach",
-    "career strategy",
-    "job search coaching",
-    "interview coaching",
-    "career transition",
+    "Chevvanthi MN",
+    "data architect mentor",
+    "Microsoft Fabric consulting",
+    "Azure data platform",
+    "interview preparation",
+    "solution architect mentoring",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "Chev",
-    title: "Chev — International Career Consultancy",
+    siteName: "Chevvanthi",
+    title: "Chevvanthi MN — Data Architecture & IT Mentoring",
     description:
-      "A career that takes you further. Strategic guidance for ambitious professionals ready to make their next move.",
+      "Interview mentoring for freshers and experienced IT professionals, plus data-platform consulting for companies.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chev — International Career Consultancy",
+    title: "Chevvanthi MN — Data Architecture & IT Mentoring",
     description:
-      "A career that takes you further. Strategic guidance for ambitious professionals ready to make their next move.",
+      "Interview mentoring for freshers and experienced IT professionals, plus data-platform consulting for companies.",
   },
   robots: {
     index: true,

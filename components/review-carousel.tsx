@@ -54,7 +54,7 @@ export function ReviewCarousel() {
 
   if (prefersReducedMotion) {
     return (
-      <div className="review-marquee review-marquee-static" aria-label="Client reviews">
+      <div className="review-marquee review-marquee-static" aria-label="Who the practice is for">
         {reviews.map((review, index) => (
           <ReviewCard key={review.name} review={review} index={index} />
         ))}
@@ -63,7 +63,7 @@ export function ReviewCarousel() {
   }
 
   return (
-    <div className="review-marquee" aria-label="Client reviews">
+    <div className="review-marquee" aria-label="Who the practice is for">
       <div className="review-marquee-track">
         <ReviewGroup />
         <ReviewGroup hidden />
