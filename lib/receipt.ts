@@ -21,6 +21,8 @@ const coral = "#f27d63";
 const lime = "#d8ed6b";
 const line = "#e4dcc8";
 
+export const studioEmail = "hello@chevvanthi.in";
+
 export function formatSession(date: string, slot: string) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
   const label = match
@@ -90,12 +92,12 @@ export function bookingEmailHtml(input: {
               <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:40px;line-height:44px;color:${ink};">${esc(input.booking.amount)}</p>
               <p style="margin:0 0 18px;font-family:Arial,sans-serif;font-size:14px;line-height:20px;color:${moss};">${esc(input.booking.service)}</p>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${details}</table>
-              <p style="margin:22px 0 0;font-family:Arial,sans-serif;font-size:14px;line-height:21px;color:${ink};">The paid receipt is attached as a PDF.</p>
+              <p style="margin:22px 0 0;font-family:Arial,sans-serif;font-size:14px;line-height:21px;color:${ink};">The paid receipt is attached as a PDF. Chevvanthi will write back from <a href="mailto:${studioEmail}" style="color:${ink};">${studioEmail}</a>.</p>
             </td>
           </tr>
           <tr>
             <td style="padding:8px 32px 28px;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;line-height:18px;color:${moss};">Chevvanthi MN · Bangalore · ${esc(input.from)}<br>Issued ${esc(input.issued)}</p>
+              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;line-height:18px;color:${moss};">Chevvanthi MN · Bangalore · <a href="mailto:${studioEmail}" style="color:${ink};">${studioEmail}</a><br>Issued ${esc(input.issued)}</p>
             </td>
           </tr>
         </table>
@@ -183,7 +185,7 @@ export async function buildReceiptPdf(input: {
     y -= 36;
   }
 
-  page.drawText(pdfSafe(`Chevvanthi MN  ·  Bangalore  ·  ${input.from}`), {
+  page.drawText(pdfSafe(`Chevvanthi MN  ·  Bangalore  ·  ${studioEmail}`), {
     x: 48,
     y: 56,
     size: 10,

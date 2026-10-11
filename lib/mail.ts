@@ -85,7 +85,7 @@ export async function sendBookingEmails(booking: BookingMail) {
   await sendOne(accessToken, mailbox, {
     to: notify,
     subject: `New booking: ${booking.service}${when ? ` · ${when}` : ""}`,
-    text: `A slot was paid for on the website.\n\n${booking.name} · ${booking.email}\n${booking.service} · ${booking.amount}\n${when}\nPayment ${booking.paymentId}\n\nThe receipt PDF is attached.\n`,
+    text: `A slot was paid for on the website.\n\n${booking.name} · ${booking.email}\n${booking.service} · ${booking.amount}\n${when}\nPayment ${booking.paymentId}\n\nThe receipt PDF is attached.\nReply from hello@chevvanthi.in\n`,
     html: bookingEmailHtml({
       ...shared,
       heading: "New booking",
@@ -106,7 +106,7 @@ export async function sendBookingEmails(booking: BookingMail) {
   await sendOne(accessToken, mailbox, {
     to: booking.email,
     subject: `Payment received — ${booking.service}`,
-    text: `Hello ${booking.name},\n\nYour payment of ${booking.amount} is confirmed for ${when || "your session"}.\n\nThe paid receipt is attached.\nChevvanthi will write back with the video link.\n`,
+    text: `Hello ${booking.name},\n\nYour payment of ${booking.amount} is confirmed for ${when || "your session"}.\n\nThe paid receipt is attached.\nChevvanthi will write back from hello@chevvanthi.in with the video link.\n`,
     html: bookingEmailHtml({
       ...shared,
       heading: "Payment received",
