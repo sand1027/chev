@@ -115,6 +115,8 @@ export function getService(slug: string | undefined) {
   return services.find((service) => service.slug === slug);
 }
 
+export const sessionSlots = ["09:00", "11:30", "14:00", "16:30"] as const;
+
 export const summary = [
   "Senior Data & Solutions Architect with 20+ years of experience in enterprise data architecture, cloud platforms, data engineering, ETL modernisation, data governance, and digital transformation.",
   "Designs scalable, secure, high-performance data platforms using Microsoft Fabric, Azure, Azure Synapse, Snowflake, and enterprise data warehouse technologies.",

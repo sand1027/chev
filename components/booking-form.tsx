@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { formatInr, services, site } from "@/data/site";
+import { formatInr, services, sessionSlots, site } from "@/data/site";
 
 type BookingStep = 1 | 2 | 3;
 
@@ -30,7 +30,6 @@ declare global {
   }
 }
 
-const slots = ["09:00", "11:30", "14:00", "16:30"];
 const testMode = (process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? "").startsWith("rzp_test_");
 
 function getAvailableDates(): AvailableDate[] {
@@ -75,7 +74,8 @@ export function BookingForm({ initialService }: { initialService?: string }) {
   const [step, setStep] = useState<BookingStep>(1);
   const [selectedService, setSelectedService] = useState(defaultService);
   const [selectedDate, setSelectedDate] = useState(availableDates[0].value);
-  const [selectedSlot, setSelectedSlot] = useState(slots[1]);
+  const [selectedSlot, setSelectedSlot] = useState<string>(sessionSlots[1]);
+  const [taken, setTaken] = useState<Record<string, string[]>>({});
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -84,7 +84,26 @@ export function BookingForm({ initialService }: { initialService?: string }) {
   const [error, setError] = useState("");
   const chosenService = services.find((service) => service.slug === selectedService) ?? services[0];
   const chosenDate = availableDates.find((date) => date.value === selectedDate) ?? availableDates[0];
-  const canPay = Boolean(name.trim() && email.trim());
+  const openSlots = sessionSlots.filter((slot) => !(taken[selectedDate] ?? []).includes(slot));
+  const canPay = Boolean(name.trim() && email.trim() && selectedSlot);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/razorpay/slots")
+      .then((response) => response.json())
+      .then((data: { taken?: Record<string, string[]> }) => {
+        if (!cancelled) setTaken(data.taken ?? {});
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [step]);
+
+  useEffect(() => {
+    if (openSlots.includes(selectedSlot as (typeof sessionSlots)[number])) return;
+    setSelectedSlot(openSlots[0] ?? "");
+  }, [openSlots, selectedSlot]);
   const price = formatInr(chosenService.amount);
 
   const steps = ["Service", "Schedule", "Payment"];
@@ -212,13 +231,13 @@ export function BookingForm({ initialService }: { initialService?: string }) {
             <section className="booking-stage-content" aria-labelledby="booking-schedule-title">
               <p className="booking-kicker">Step 02 <span>—</span> Find a time</p>
               <h2 id="booking-schedule-title">Share a time that gives you room to think.</h2>
-              <p className="booking-stage-intro">Sessions are by video, in India Standard Time. This is a preferred slot. Chevvanthi confirms it by email after payment.</p>
+              <p className="booking-stage-intro">Sessions are by video, in India Standard Time. A time leaves this list once someone pays for it.</p>
               <div className="booking-schedule-grid">
                 <div><p className="booking-field-label">Choose a date</p><div className="date-strip">{availableDates.map((date) => <button key={date.value} type="button" className={date.value === selectedDate ? "selected" : ""} onClick={() => setSelectedDate(date.value)} aria-pressed={date.value === selectedDate}><span>{date.weekday}</span><strong>{date.day}</strong><small>{date.month}</small></button>)}</div></div>
-                <div><p className="booking-field-label">Available times</p><div className="time-grid">{slots.map((slot) => <button className={slot === selectedSlot ? "selected" : ""} type="button" key={slot} onClick={() => setSelectedSlot(slot)} aria-pressed={slot === selectedSlot}>{slot}</button>)}</div></div>
+                <div><p className="booking-field-label">Available times</p>{openSlots.length ? <div className="time-grid">{openSlots.map((slot) => <button className={slot === selectedSlot ? "selected" : ""} type="button" key={slot} onClick={() => setSelectedSlot(slot)} aria-pressed={slot === selectedSlot}>{slot}</button>)}</div> : <p className="booking-stage-intro">Every time on this day is already booked. Choose another date.</p>}</div>
               </div>
-              <div className="booking-selected-time"><span>Your preferred time</span><strong>{chosenDate.full} <i>·</i> {selectedSlot}</strong></div>
-              <div className="booking-stage-actions"><button className="booking-back" type="button" onClick={() => setStep(1)}>← Back</button><button className="booking-next" type="button" onClick={() => setStep(3)}>Continue <span>→</span></button></div>
+              <div className="booking-selected-time"><span>Your time</span><strong>{selectedSlot ? <>{chosenDate.full} <i>·</i> {selectedSlot}</> : "Choose another date"}</strong></div>
+              <div className="booking-stage-actions"><button className="booking-back" type="button" onClick={() => setStep(1)}>← Back</button><button className="booking-next" type="button" onClick={() => setStep(3)} disabled={!selectedSlot}>Continue <span>→</span></button></div>
             </section>
           )}
 

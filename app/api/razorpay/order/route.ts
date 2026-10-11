@@ -1,4 +1,5 @@
-import { getService } from "@/data/site";
+import { getService, sessionSlots } from "@/data/site";
+import { getBookedSlotMap, isSlotTaken } from "@/lib/booked-slots";
 import { getRazorpay } from "@/lib/razorpay";
 
 export const runtime = "nodejs";
@@ -33,9 +34,23 @@ export async function POST(request: Request) {
   const service = getService(body.slug);
   const name = clip(body.name, 80);
   const email = clip(body.email, 80);
+  const date = clip(body.date, 20);
+  const slot = clip(body.slot, 10);
   if (!service) return Response.json({ error: "Choose a service from the list." }, { status: 400 });
   if (!name || !email.includes("@")) {
     return Response.json({ error: "Add your name and a valid email address." }, { status: 400 });
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !sessionSlots.includes(slot as (typeof sessionSlots)[number])) {
+    return Response.json({ error: "Choose a date and time from the list." }, { status: 400 });
+  }
+
+  try {
+    const taken = await getBookedSlotMap();
+    if (isSlotTaken(taken, date, slot)) {
+      return Response.json({ error: "That time was just booked. Go back and choose another." }, { status: 409 });
+    }
+  } catch {
+    return Response.json({ error: "The calendar could not be checked. Try again in a moment." }, { status: 502 });
   }
 
   try {
@@ -48,8 +63,8 @@ export async function POST(request: Request) {
         name,
         email,
         phone: clip(body.phone, 20),
-        date: clip(body.date, 20),
-        slot: clip(body.slot, 10),
+        date,
+        slot,
         note: clip(body.note, 200),
       },
     });
