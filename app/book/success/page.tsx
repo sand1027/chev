@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { PageShell } from "@/components/site-chrome";
-import { formatInr, getService, site } from "@/data/site";
+import { formatInr, getService } from "@/data/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -38,9 +38,6 @@ export default async function BookingSuccessPage({
           <Link className="button button-dark" href="/">
             Back to home
           </Link>
-          <a className="text-link" href={`mailto:${site.email}`}>
-            {site.email}
-          </a>
         </div>
       </section>
     </PageShell>
