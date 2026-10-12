@@ -29,7 +29,7 @@ export default function ServicesPage() {
             <div className="service-booking">
               <strong>{formatInr(service.amount)}</strong>
               <span>{service.duration}</span>
-              <Link href={`/book?service=${service.slug}`}>Book this service →</Link>
+              <Link className="button button-dark" href={`/services/${service.slug}`}>View service</Link>
             </div>
           </article>
         ))}

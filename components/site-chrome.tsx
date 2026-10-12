@@ -59,7 +59,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="header-tools">
-          <Link className="header-cta" href="/book">Book a slot ↗</Link>
+          <Link className="header-cta" href="/book"><span className="header-cta-full">Book a slot ↗</span><span className="header-cta-short">Book</span></Link>
           <button
             className={isOpen ? "nav-toggle is-open" : "nav-toggle"}
             type="button"

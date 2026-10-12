@@ -24,14 +24,6 @@ function Arrow({ className = "" }: { className?: string }) {
   );
 }
 
-function Spark({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 2.8c.5 5.7 2.6 8.1 8.2 9.2-5.6 1.1-7.7 3.5-8.2 9.2-.5-5.7-2.6-8.1-8.2-9.2 5.6-1.1 7.7-3.5 8.2-9.2Z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function Home() {
   return (
     <>
@@ -72,21 +64,17 @@ export default function Home() {
       </section>
 
       <section className="intro-section container" id="approach">
-        <div className="section-label">The practice</div>
-        <div className="intro-copy">
-          <p className="kicker">Senior Data & Solutions Architect</p>
+        <div className="section-head">
+          <div className="section-label">The practice</div>
           <h2>Twenty years inside<br /><em>enterprise data.</em></h2>
-          <p className="body-copy">Microsoft Fabric, Azure, Synapse, Snowflake, and the ETL systems that came before them. Chevvanthi uses that work to prepare people for interviews and to help companies design platforms that hold up.</p>
-        </div>
-        <div className="intro-aside">
-          <p>B.E. Information Technology,<br />Kongu Engineering College, 2004.</p>
-          <div className="tiny-star"><Spark /></div>
+          <p>Microsoft Fabric, Azure, Synapse, Snowflake, and the ETL systems that came before them. Chevvanthi uses that work to prepare people for interviews and to help companies design platforms that hold up.</p>
+          <p className="section-note">B.E. Information Technology, Kongu Engineering College, 2004.</p>
         </div>
       </section>
 
       <section className="services-section" id="services">
         <div className="container">
-          <div className="section-heading">
+          <div className="section-head">
             <div className="section-label">What we do</div>
             <h2>Three ways to<br /><em>work together.</em></h2>
             <p>A one-hour fresher session, a two-hour architect mentoring session, or a consulting block for a company team.</p>
@@ -94,10 +82,10 @@ export default function Home() {
           <div className="services-list">
             {highlights.map((service, index) => (
               <article className="service-card" key={service.slug}>
-                <div className="service-top"><span>0{index + 1}</span></div>
-                <h3>{service.audience}</h3>
-                <p>{service.description} {formatInr(service.amount)} · {service.duration}.</p>
-                <a href={`/book?service=${service.slug}`} data-analytics-event={`service_${service.slug}_booking`}>Book this <Arrow /></a>
+                <div className="service-top"><span>0{index + 1}</span><span>{service.audience}</span></div>
+                <h3><a href={`/services/${service.slug}`}>{service.name}</a></h3>
+                <p>{service.description}</p>
+                <a className="service-card-link" href={`/services/${service.slug}`} data-analytics-event={`service_${service.slug}_booking`}>{formatInr(service.amount)} · {service.duration} <Arrow /></a>
               </article>
             ))}
           </div>
@@ -105,29 +93,26 @@ export default function Home() {
       </section>
 
       <section className="outcomes-section container">
-        <div className="outcomes-art" aria-hidden="true">
-          <div className="arch arch-1" /><div className="arch arch-2" /><div className="arch arch-3" />
-          <div className="outcomes-dot" />
-          <p>Teams, platforms,<br />and a decision<br />you can defend.</p>
-        </div>
-        <div className="outcomes-copy">
+        <div className="section-head">
           <div className="section-label">What the work has built</div>
           <h2>Delivery, platforms,<br />and <em>clear decisions.</em></h2>
-          <div className="outcomes-list">
-            {outcomes.map(([number, title, description]) => (
-              <div className="outcome" key={number}>
-                <span>{number}</span>
-                <div><h3>{title}</h3><p>{description}</p></div>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="outcomes-list">
+          {outcomes.map(([number, title, description]) => (
+            <article className="outcome" key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
         </div>
       </section>
 
       <section className="stories-section" id="stories">
         <div className="container">
-          <div className="stories-header">
-            <div><div className="section-label">Who it&apos;s for</div><h2>Freshers, architects,<br /><em>and teams.</em></h2></div>
+          <div className="section-head">
+            <div className="section-label">Who it&apos;s for</div>
+            <h2>Freshers, architects,<br /><em>and teams.</em></h2>
             <p>Choose the format that matches the conversation. Company packages continue by the day, week, or month.</p>
           </div>
         </div>
@@ -135,29 +120,53 @@ export default function Home() {
       </section>
 
       <section className="process-section container">
-        <div className="process-note"><span className="roundel">C</span><p>Pay here.<br />Meet on video.</p></div>
-        <div className="process-copy">
+        <div className="section-head">
           <div className="section-label">How it works</div>
           <h2>Choose a session.<br /><em>Then pay.</em></h2>
-          <div className="process-steps">
-            <div><span>01 / Choose</span><p>Pick a fresher session, experienced mentoring, or a daily, weekly, or monthly consulting block.</p></div>
-            <div><span>02 / Pay</span><p>Share a preferred time and pay with Razorpay. The charge matches the price on this site.</p></div>
-            <div><span>03 / Meet</span><p>Chevvanthi confirms the slot by email. You arrive with the interview, architecture question, or platform problem in front of you.</p></div>
-          </div>
+          <p>Pay on this site. Meet on video. Three steps, and the price stays the one published here.</p>
         </div>
+        <ol className="process-steps">
+          <li>
+            <span>01</span>
+            <h3>Choose</h3>
+            <p>Pick a fresher session, experienced mentoring, or a daily, weekly, or monthly consulting block.</p>
+          </li>
+          <li>
+            <span>02</span>
+            <h3>Pay</h3>
+            <p>Share a preferred time and pay with Razorpay. The charge matches the price on this site.</p>
+          </li>
+          <li>
+            <span>03</span>
+            <h3>Meet</h3>
+            <p>Chevvanthi confirms the slot by email. You arrive with the interview, architecture question, or platform problem in front of you.</p>
+          </li>
+        </ol>
       </section>
 
       <section className="connect-section" id="connect">
         <div className="connect-inner container">
-          <div className="connect-orb"><div /><span>↗</span></div>
           <div className="connect-copy">
-            <p className="eyebrow"><span /> Book a session</p>
-            <h2>Ready to talk through<br />the <em>next decision?</em></h2>
-            <p>Fresher sessions start at ₹499. Experienced mentoring is ₹999 for two hours. Company consulting starts at ₹2,000 a day.</p>
+            <div className="section-head">
+              <div className="section-label">Book a session</div>
+              <h2>Ready to talk through<br />the <em>next decision?</em></h2>
+              <p>Open a service, pick a time, and pay. The charge matches the price on this site.</p>
+            </div>
             <a className="button button-light" href="/book" data-analytics-event="contact_email_click">
               Book and pay <Arrow />
             </a>
           </div>
+          <ul className="connect-offers">
+            {highlights.map((service) => (
+              <li key={service.slug}>
+                <a href={`/services/${service.slug}`}>
+                  <span>{service.audience}</span>
+                  <strong>{service.name}</strong>
+                  <em>{formatInr(service.amount)} · {service.duration}</em>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

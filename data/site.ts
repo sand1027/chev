@@ -115,7 +115,7 @@ export function getService(slug: string | undefined) {
   return services.find((service) => service.slug === slug);
 }
 
-export const sessionSlots = ["09:00", "11:30", "14:00", "16:30"] as const;
+export const sessionSlots = ["09:00", "10:30", "11:30", "13:00", "14:00", "15:30", "16:30", "18:00"] as const;
 
 export const summary = [
   "Senior Data & Solutions Architect with 20+ years of experience in enterprise data architecture, cloud platforms, data engineering, ETL modernisation, data governance, and digital transformation.",

@@ -23,7 +23,7 @@ export default function PricingPage() {
         {services.map((service) => (
           <article key={service.slug}>
             <div>
-              <h2>{service.name}</h2>
+              <h2><Link href={`/services/${service.slug}`}>{service.name}</Link></h2>
               <p>{service.description}</p>
             </div>
             <div className="price-meta">
